@@ -13,8 +13,9 @@
 /ITL/scene/hide set txt "Hide";
 /ITL/scene/hide y 0.5;
 /ITL/scene/hide x 0.5;
+/ITL/scene/hide color purple;
 /ITL/scene/hide watch mouseEnter (/ITL/scene/$self color red);
-/ITL/scene/hide watch mouseLeave (/ITL/scene/$self color black);
+/ITL/scene/hide watch mouseLeave (/ITL/scene/$self color purple);
 /ITL/scene/hide watch mouseDown(
 	/ITL/scene/layer show 0
 );
@@ -22,8 +23,9 @@
 /ITL/scene/show set txt "Show";
 /ITL/scene/show y 0.5;
 /ITL/scene/show x -0.5;
+/ITL/scene/show color purple;
 /ITL/scene/show watch mouseEnter (/ITL/scene/$self color red);
-/ITL/scene/show watch mouseLeave (/ITL/scene/$self color black);
+/ITL/scene/show watch mouseLeave (/ITL/scene/$self color purple);
 /ITL/scene/show watch mouseDown(
 	/ITL/scene/layer show 1
 );
@@ -33,7 +35,7 @@
 /ITL/scene/rot y 0.5;
 rotate=(
 /ITL/scene/layer rotatex '$x[0,180]',
-/ITL/scene/layer rotatez '$x[0,180]'
+/ITL/scene/layer rotatey '$x[0,180]'
 );
 /ITL/scene/rot watch mouseDown ($rotate);
 /ITL/scene/rot watch mouseMove ($rotate);
@@ -41,7 +43,8 @@ rotate=(
 /ITL/scene/fsb set txt "fullscreen";
 /ITL/scene/fsb x -1.;
 /ITL/scene/fsb y 0.5;
+/ITL/scene/fsb color purple;
 /ITL/scene/fsb watch mouseEnter (/ITL/scene/$self color red);
-/ITL/scene/fsb watch mouseLeave (/ITL/scene/$self color black);
+/ITL/scene/fsb watch mouseLeave (/ITL/scene/$self color purple);
 /ITL/scene/fsb watch mouseDown (/ITL/scene fullscreen 1);
 
