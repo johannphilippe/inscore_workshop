@@ -1,0 +1,26 @@
+# Reaction to another object
+
+/ITL/scene/* del;
+/ITL/scene/pol set polygon 0.5 0 0 0.5 -0.5 -0.5 0.34 -0.5 0.75 0.2;
+
+/ITL/scene/c1 set ellipse 0.1 0.1;
+/ITL/scene/c1 color purple;
+/ITL/scene/sync c1 pol syncFrame;
+/ITL/scene/c1 watch timeEnter 1.0 2.0 (/ITL/scene/c1 date 0);
+tempo = 180;
+/ITL/scene/c1 tempo $tempo;
+/ITL/scene/pol tempo $tempo;
+/ITL/scene/pol duration 1;
+/ITL/scene/pol watch ddate (/ITL/scene/c1 scale "$date%f");
+/ITL/scene/pol watch timeEnter 3.0 4.0 (/ITL/scene/pol tempo -$tempo);
+/ITL/scene/pol watch timeEnter 0.0 -1.0 (/ITL/scene/pol tempo $tempo);
+
+
+/ITL/scene/sq set rect 0.3 0.5;
+/ITL/scene/sq color red;
+
+/ITL/scene/c1 watch ddate (
+	/ITL/scene/sq x "$date%f",
+	/ITL/scene/sq scale "$date%f"
+);
+

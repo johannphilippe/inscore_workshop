@@ -1,0 +1,13 @@
+(*
+	Tags allow to custom staff, notes and create some other visual statements
+*)
+
+{
+	[\accol<type="none"> \meter<"2/4"> \instrument<"Tie", autopos="on"> \tie(a a/8) \tie(d/8 d/2) ],
+	[\meter<"2/4"> \instr<"Slur", autopos="on" >\slur(a g c/2) ],
+	[\meter<"2/4"> \instr<"Chords", autopos="on"> \arpeggio({a/2, d/2, f/2}) \glissando(\arpeggio({a, c2, e2}) {d1, f, a}) ],
+	[\meter<"2/4"> \instrument<"Ornaments", autopos="on"> \trill<"a#">(a/2) \mord(c) ],
+	[\meter<"2/4"> \instrument<"Articulations", autopos="on"> \accent(a) \pizz(g) \pizz<type="snap">(g) \stacc(c) \marcato(a) \harmonic(f)], 
+	[\meter<"2/4"> \instrument<"Dynamics", autopos="on"> \i<"pp">(a) \i<"sfz">b   \dim<dx2=-3>(g/8 g g g g \i<"p"> g) ]
+}
+

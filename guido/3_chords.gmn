@@ -1,0 +1,5 @@
+(*
+	To write a chord, simply write your notes between curly brackets {}
+	Notes must be separated with comas
+*)
+[{a, b, c} {d/2, f} {a/8, c}]

@@ -1,0 +1,53 @@
+/ITL/scene/* del;
+
+/ITL/scene/arc set arc 1. 1. 0 360;
+/ITL/scene/arc start 90;
+/ITL/scene/arc brushStyle solid;
+
+/ITL/scene/p set ellipse 0.2 0.2;
+/ITL/scene/p color purple;
+/ITL/scene/sync p arc syncFrame;
+
+/ITL/scene/m set rect 0.2 0.2;
+/ITL/scene/m y -0.7;
+/ITL/scene/m x -0.7;
+/ITL/scene/m color red;
+
+/ITL/scene/txt set txt "Counter";
+/ITL/scene/txt y -0.7;
+<?javascript
+	var div = 5;
+	var pulses = 9;
+	var sub = pulses / div;
+	var last = 0;
+	var cnt = 0;
+	var msgs = "";
+	var col;
+	for(var i = 0; i < pulses; i++)
+	{
+		var str = "/ITL/scene/c" + i + " set ellipse 0.1 0.1;\n";
+		str += "/ITL/scene/sync c" + i + " arc syncFrame;\n";
+		str += "/ITL/scene/c" + i + " date " + (i/pulses) + ";\n";
+
+		if( (i+1) >= (last + sub) && (cnt < div) ) {
+			str += "/ITL/scene/c" + i + " color yellow;\n";
+			if((cnt % 2) == 0) {col = "purple";}
+			console.log(i/pulses);
+			str += "/ITL/scene/p watch timeEnter " + (i/pulses) + " " + (i/pulses+0.5) +  "(/ITL/scene/m color yellow );\n";
+			cnt += 1;
+			last = cnt * sub;
+		} else {
+			str += "/ITL/scene/c" + i + " color red;\n";
+			str += "/ITL/scene/p watch timeEnter " + (i/pulses) + " " + (i/pulses + 0.5) + "(/ITL/scene/m color red );\n";
+		}
+
+		msgs += str;
+	}
+	msgs;
+?>
+
+/ITL/scene/p tempo 60;
+/ITL/scene/p watch timeEnter 1.0 2.0 (/ITL/scene/p date 0);
+
+
+

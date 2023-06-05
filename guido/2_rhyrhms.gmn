@@ -1,0 +1,11 @@
+(*
+ To indicate the duration of a note, you just need to write "/NUM" where num is the subdivision you want
+ When no duration is indicated, it will use the previous duration (/4 by default)
+ Writing the full division in the form "a*3/4" allows to specify more precisely the duration 
+ The "." is used for dotted notes and ".." for double dotted
+ 
+
+*)
+[a a/1 a/2 a/4 a/8 a/8 a/16 a/16 a/16 a/16 a/2. a/4. a/2.. a/4.. a/3 a/6 a/9 a*3/8 _/4 ]
+
+

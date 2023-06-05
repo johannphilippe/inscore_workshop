@@ -1,0 +1,42 @@
+/ITL/scene/* del;
+/ITL/scene/pol set polygon 0.5 0 0 0.5 -0.5 -0.5;
+
+/ITL/scene/c1 set ellipse 0.1 0.1;
+/ITL/scene/c1 color pink;
+/ITL/scene/sync c1 pol syncFrame;
+/ITL/scene/c1 watch timeEnter 1.0 2.0 (/ITL/scene/c1 date 0);
+
+/ITL/scene/c2 set ellipse 0.1 0.1;
+/ITL/scene/c2 color purple;
+/ITL/scene/sync c2 pol syncOver;
+/ITL/scene/c2 watch timeEnter 1.0 2.0 (/ITL/scene/c2 tempo -120);
+/ITL/scene/c2 watch timeEnter 0.0 -1.0 (/ITL/scene/c2 tempo 120);
+/ITL/scene/c* tempo 120;
+
+/ITL/scene/ln set line wa 0.9 45;
+/ITL/scene/ln color red;
+/ITL/scene/ln y -0.6;
+/ITL/scene/ln x 0.4;
+
+
+/ITL/scene/c3 set ellipse 0.1 0.1;
+/ITL/scene/c3 color red;
+/ITL/scene/sync c3 ln syncFrame;
+/ITL/scene/c3 watch timeEnter 1.0 2.0 (/ITL/scene/c3 date 0);
+/ITL/scene/c3 tempo 120;
+
+/ITL/scene/crv set curve -0.7 1. -0.3 -0.8 -0.7 -0.3 -1. -1.;
+/ITL/scene/crv x -0.7;
+/ITL/scene/crv y 0.1;
+/ITL/scene/crv color blue;
+
+/ITL/scene/c4 set ellipse 0.1 0.1;
+/ITL/scene/c4 color yellow;
+/ITL/scene/sync c4 crv syncFrame;
+/ITL/scene/c4 watch timeEnter 1.0 2.0 (/ITL/scene/c4 date 0);
+/ITL/scene/c4 tempo 120;
+
+/ITL/scene/c5 set ellipse 0.1 0.1;
+/ITL/scene/c5 color green;
+/ITL/scene/sync c5 crv syncFrame;
+/ITL/scene/c4 watch ddate (/ITL/scene/c5 scale "$date%f");

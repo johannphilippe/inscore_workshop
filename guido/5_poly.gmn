@@ -1,0 +1,10 @@
+(*
+	Different staffs can be written inside a {} block. 
+	Each staff must be separated by a comma
+*)
+{
+	[a a/8 b/8],
+	[b a/8 g/8]
+}
+
+

@@ -1,0 +1,65 @@
+# One page of Treatise - by Cornelius Cardew with playbar and tempo changes example
+tempo = 10;
+/ITL/scene/* del;
+# Set image URL
+/ITL/scene/treatise set img 'https://arthur.io/img/art/jpg/00017344fb0f283de/cornelius-cardew/treatise/large/cornelius-cardew--treatise.webp';
+# Scale it 
+/ITL/scene/treatise scale 0.65;
+
+# Create playbar
+/ITL/scene/bar set rect 0.0125 2;
+/ITL/scene/bar x -1;
+
+# Sync it to image
+/ITL/scene/sync bar treatise;
+/ITL/scene/bar watch timeEnter 1.0 1.05 (/ITL/scene/bar date 0);
+
+# Play button
+/ITL/scene/play set txt "Play";
+/ITL/scene/play color grey;
+/ITL/scene/play y 0.9;
+/ITL/scene/play x -0.5;
+/ITL/scene/play watch mouseEnter (/ITL/scene/play color black);
+/ITL/scene/play watch mouseLeave(/ITL/scene/play color grey);
+/ITL/scene/play watch mouseDown(
+	/ITL/scene/bar tempo $tempo
+);
+# Stop button
+/ITL/scene/stop set txt "Stop";
+/ITL/scene/stop color grey;
+/ITL/scene/stop y 0.9;
+/ITL/scene/stop x 0;
+/ITL/scene/stop watch mouseEnter (/ITL/scene/stop color black);
+/ITL/scene/stop watch mouseLeave(/ITL/scene/stop color grey);
+/ITL/scene/stop watch mouseDown(
+	/ITL/scene/bar tempo 0
+);
+# Rewind button
+/ITL/scene/rew set txt "Rewind";
+/ITL/scene/rew color grey;
+/ITL/scene/rew y 0.9;
+/ITL/scene/rew x 0.5;
+/ITL/scene/rew watch mouseEnter (/ITL/scene/rew color black);
+/ITL/scene/rew watch mouseLeave(/ITL/scene/rew color grey);
+/ITL/scene/rew watch mouseDown(
+	/ITL/scene/bar date 0
+);
+
+# Marker 1 
+/ITL/scene/m1 set rect 0.01 2;
+/ITL/scene/m1 color red;
+/ITL/scene/m1 y -1;
+/ITL/scene/sync m1 treatise syncOver;
+/ITL/scene/m1 date 0.238;
+
+# Marker 2 
+/ITL/scene/m2 set rect 0.01 2;
+/ITL/scene/m2 color red;
+/ITL/scene/m2 y -1;
+/ITL/scene/sync m2 treatise syncOver;
+/ITL/scene/m2 date 0.886;
+
+# Events when the playbar crosses markers 
+/ITL/scene/bar watch timeEnter 0.238 0.25 (/ITL/scene/bar tempo 30 );
+/ITL/scene/bar watch timeEnter 0.886 0.90 (/ITL/scene/bar tempo 5 );
+

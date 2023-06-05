@@ -1,0 +1,7 @@
+(*
+  	Staff is written between square brackets [HERE] 
+	"\" is preceding every tag > tags are used to configure staff and score
+	Notes can be written with letters
+	Rests can be written with "_" exactly like another note 
+*)
+[\key<0> \clef<"g"> \meter<"5/4"> c _ c2 c1 _ c2 e]

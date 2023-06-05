@@ -1,0 +1,25 @@
+
+
+/ITL/scene/* del;
+
+/ITL/scene/arc set arc 1. 1. 90 270;
+/ITL/scene/arc close 1;
+/ITL/scene/arc color black;
+
+/ITL/scene/arc duration '1';
+/ITL/scene/arc tempo 120;
+
+/ITL/scene/c1 set ellipse 0.1 0.1;
+/ITL/scene/c1 color blue;
+/ITL/scene/sync c1 arc syncFrame;
+
+/ITL/scene/c1 tempo 120;
+/ITL/scene/c1 watch timeEnter 1.0 2.0 (/ITL/scene/c1 date 0);
+
+
+/ITL/scene/c1 watch ddate (
+	/ITL/scene/arc drotatez -1,
+	/ITL/scene/arc drotatey 1,
+	/ITL/scene/arc drotatex 3
+);
+

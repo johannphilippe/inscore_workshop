@@ -1,0 +1,68 @@
+/ITL/scene/* del;
+tempo = 120;
+default_map = "([-1., 1.[ [-1., 1.[) ([0/1, 1/1[)";
+map		= "([-1., 1.[ [-1., -0.5[)	([0/1, 1/4[)
+		   ([-1., 1.[ [-0.5, 0.[) 	([1/4, 3/8[)
+		   ([-1., 1.[ [0., 0.5[) 	([3/8, 2/4[)
+		   ([-1., 1.[ [0.5, 1.0[) 	([2/4, 4/4[)
+		  ";
+		  
+ymap = "([-1., 1.[    [-1., 0.[)	([0/2, 1/4[)
+		([-1., 1. [   [0., 1.[) 	([1/4, 4/4[)";
+		  
+/ITL/scene/r1 set rect 1 1;
+/ITL/scene/r1 radius 30 30;
+/ITL/scene/r1 color blue;
+/ITL/scene/r1 x -0.5;
+/ITL/scene/r1 y -0.5;
+
+/ITL/scene/r2 set rect 1 1;
+/ITL/scene/r2 radius 30 30;
+/ITL/scene/r2 color green;
+/ITL/scene/r2 x -0.5;
+/ITL/scene/r2 y 0.5;
+
+/ITL/scene/circ1 set ellipse 0.1 0.1;
+/ITL/scene/circ1 color red;
+/ITL/scene/circ1 alpha 200;
+
+
+/ITL/scene/circ* watch timeEnter 1 2 (/ITL/scene/circ* date 0);
+/ITL/scene/circ* watch timeEnter 1 2 (/ITL/scene/circ* tempo -$tempo);
+/ITL/scene/circ* watch timeLeave 0 1 (/ITL/scene/circ* tempo $tempo);
+
+/ITL/scene/txt set txt "Map";	
+/ITL/scene/txt y 0.5;
+/ITL/scene/txt x 0.5;
+/ITL/scene/txt watch mouseDown (
+	/ITL/scene/$self push,
+	/ITL/scene/$self color red,
+	/ITL/scene/$self set txt "Unmap",
+	/ITL/scene/r1 map $map,
+	/ITL/scene/r2 map $ymap,
+	/ITL/scene/$self watch mouseDown(
+		/ITL/scene/r1 map $default_map,
+		/ITL/scene/r2 map $default_map,
+		/ITL/scene/$self color black,
+		/ITL/scene/$self set txt "Map",
+		/ITL/scene/$self pop
+	)
+);
+
+/ITL/scene/start set txt "Start";
+/ITL/scene/start y 0.7;
+/ITL/scene/start x 0.5;
+/ITL/scene/start watch mouseDown (
+	/ITL/scene/$self push,
+	/ITL/scene/$self set txt "Stop",
+	/ITL/scene/circ* tempo $tempo,
+	/ITL/scene/$self watch mouseDown(
+		/ITL/scene/$self set txt "Start",
+		/ITL/scene/$self pop,
+		/ITL/scene/circ* tempo 0
+	)
+);
+
+/ITL/scene/sync circ1 r* ;
+#/ITL/scene/sync circ2 r2 ;
+

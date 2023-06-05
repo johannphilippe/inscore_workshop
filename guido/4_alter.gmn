@@ -1,0 +1,5 @@
+(*
+	Alterations are written with # for sharp and & for flat
+	\alter<quantity> allows to write permanent alteration for the staff where quantity of 1 means half a tone
+*)
+[a \bar a# a \bar a& a \bar a## a&& \bar \alter<0.5>a \alter<-0.5>a]

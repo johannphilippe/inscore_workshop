@@ -1,0 +1,128 @@
+
+/ITL/scene/* del;
+
+# Create a Guido score
+score = '
+	{	
+		[\key<"4"> e2/4. e/4. e/4], 
+		[\key<"4"> d2/4. d/4. d/4],
+		[\key<"4"> a/4. a/4. a/4],
+		[\key<"4"> f/4. f/4. f/4]
+	}
+';
+
+/ITL/scene/score set gmn $score;
+/ITL/scene/score scale 1.5;
+
+# Create ellipses - will act as playbars
+w = 0.05;
+/ITL/scene/circ1 set ellipse $w 0.1;
+/ITL/scene/circ1 color red;
+/ITL/scene/circ2 set ellipse $w 0.1;
+/ITL/scene/circ2 color blue;
+/ITL/scene/circ3 set ellipse $w 0.1;
+/ITL/scene/circ3 color green;
+/ITL/scene/circ4 set ellipse $w 0.1;
+/ITL/scene/circ4 color orange;
+/ITL/scene/circ* alpha 0.1;
+
+# Map it to staffs of score
+/ITL/scene/score map staff1;
+/ITL/scene/score map staff2;
+/ITL/scene/score map staff3;
+/ITL/scene/score map staff4;
+/ITL/scene/sync circ1 "score:staff1";
+/ITL/scene/sync circ2 "score:staff2";
+/ITL/scene/sync circ3 "score:staff3";
+/ITL/scene/sync circ4 "score:staff4";
+
+/ITL/scene/score watch mouseDown (/ITL/scene/circ* date '$date:system');
+
+# Rewind button
+/ITL/scene/rewind set txt "Rewind";
+/ITL/scene/rewind y 0.8;
+/ITL/scene/rewind color grey;
+/ITL/scene/rewind watch mouseDown (/ITL/scene/circ* date 0);
+/ITL/scene/rewind watch mouseEnter (/ITL/scene/$self color black);
+/ITL/scene/rewind watch mouseLeave (/ITL/scene/$self color grey);
+
+tempo1 = 120;
+tempo2 = 90;
+tempo3 = 75;
+tempo4 = 60;
+
+# Trigger button
+/ITL/scene/trig set txt "Start";
+/ITL/scene/trig color black;
+/ITL/scene/trig y 0.9;
+/ITL/scene/trig watch mouseDown (
+	/ITL/scene/$self push,
+	/ITL/scene/$self color red,
+	/ITL/scene/circ1 tempo $tempo1,
+	/ITL/scene/circ2 tempo $tempo2,
+	/ITL/scene/circ3 tempo $tempo3,
+	/ITL/scene/circ4 tempo $tempo4,
+	/ITL/scene/$self watch mouseDown (
+		/ITL/scene/$self pop,
+		/ITL/scene/$self color black,
+		/ITL/scene/circ* tempo 0
+	)
+);
+
+dsp = 'import("stdfaust.lib"); process = pm.ks_ui_MIDI <: dm.freeverb_demo;';
+# Create karplustrong dsp's with Faust
+/ITL/scene/faust1 set faust $dsp;
+/ITL/scene/faust2 set faust $dsp;
+/ITL/scene/faust3 set faust $dsp;
+/ITL/scene/faust4 set faust $dsp;
+
+# Hide Faust
+/ITL/scene/faust* show 0;
+/ITL/scene/faust* connect audioOutput;
+/ITL/scene/faust* autoOff 1;
+
+# Frequencies corresponding to score
+freq1 = 659;
+freq2 = 554;
+freq3 = 440;
+freq4 = 349;
+
+# set Faust dsp's parameters
+/ITL/scene/faust1/faust1/karplus/params/freq $freq1;
+/ITL/scene/faust2/faust2/karplus/params/freq $freq2;
+/ITL/scene/faust3/faust3/karplus/params/freq $freq3;
+/ITL/scene/faust4/faust4/karplus/params/freq $freq4;
+/ITL/scene/faust*/faust*/karplus/params/damping 0.01;
+/ITL/scene/faust2/faust2/Freeverb/Wet 0.1;
+/ITL/scene/faust*/faust*/Freeverb/0x00/RoomSize 0.5;
+/ITL/scene/faust[23]/faust*/karplus/params/gain 0.5;
+
+# Associate time zones with note triggers 
+/ITL/scene/circ1 watch timeEnter 0.01 0.375 ( /ITL/scene/faust1/faust1/karplus/gate 1 );
+/ITL/scene/circ1 watch timeEnter 0.375 0.75  ( /ITL/scene/faust1/faust1/karplus/gate 1 );
+/ITL/scene/circ1 watch timeEnter 0.75 1.0  ( /ITL/scene/faust1/faust1/karplus/gate 1 );
+/ITL/scene/circ1 watch timeEnter 1.0 1.01 (/ITL/scene/circ1 date 0);
+
+/ITL/scene/circ2 watch timeEnter 0.01 0.375 ( /ITL/scene/faust2/faust2/karplus/gate 1 );
+/ITL/scene/circ2 watch timeEnter 0.375 0.75  ( /ITL/scene/faust2/faust2/karplus/gate 1 );
+/ITL/scene/circ2 watch timeEnter 0.75 1.0  ( /ITL/scene/faust2/faust2/karplus/gate 1 );
+/ITL/scene/circ2 watch timeEnter 1.0 1.01 (/ITL/scene/circ2 date 0);
+
+/ITL/scene/circ3 watch timeEnter 0.01 0.375 ( /ITL/scene/faust3/faust3/karplus/gate 1 );
+/ITL/scene/circ3 watch timeEnter 0.375 0.75  ( /ITL/scene/faust3/faust3/karplus/gate 1 );
+/ITL/scene/circ3 watch timeEnter 0.75 1.0  ( /ITL/scene/faust3/faust3/karplus/gate 1 );
+/ITL/scene/circ3 watch timeEnter 1.0 1.01 (/ITL/scene/circ3 date 0);
+
+/ITL/scene/circ4 watch timeEnter 0.01 0.375 ( /ITL/scene/faust4/faust4/karplus/gate 1 );
+/ITL/scene/circ4 watch timeEnter 0.375 0.75  ( /ITL/scene/faust4/faust4/karplus/gate 1 );
+/ITL/scene/circ4 watch timeEnter 0.75 1.0  ( /ITL/scene/faust4/faust4/karplus/gate 1);
+/ITL/scene/circ4 watch timeEnter 1.0 1.01 (/ITL/scene/circ4 date 0);
+
+
+
+
+
+
+
+
+
